@@ -33,13 +33,13 @@ def peliculas(id) :
             response = response.json()
             if response['success'] :
                 if id.isdigit() :
-                    return render_template('pelicula.html', pelicula= response['data'])    
-                else : return render_template('peliculas.html', peliculas= response['data'])
+                    return render_template( 'pelicula.html', pelicula= response['data'] )    
+                else : return render_template( 'peliculas.html', peliculas= response['data'] )
             else : return redirect( url_for('index') )
         else: return redirect( url_for('index') )
     
-    return redirect( url_for('index') )
+    return redirect( url_for( 'index' ) )
 
 if __name__ == "__main__" :
-    app.register_error_handler(404, page_no_found)
-    app.run( debug=False)
+    app.register_error_handler( 404, page_no_found )
+    app.run( debug=False )
