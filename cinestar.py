@@ -22,7 +22,6 @@ def cines(id = None) :
             else : return redirect( url_for('index') )
         else: return redirect( url_for('index') )
         
-    #Completar cine
     return render_template('cine.html')
 
 @app.route("/peliculas")
