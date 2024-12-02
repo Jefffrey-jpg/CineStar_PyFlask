@@ -25,20 +25,14 @@ def cines(id = None) :
     #Completar cine
     return render_template('cine.html')
 
-@app.route("/peliculas/<id>")
-def peliculas(id) :
-    if id == 'cartelera' or id == 'estrenos' or id.isdigit() :
-        response = requests.get(f"https://oaemdl.es/cinestar_sweb_php/peliculas/{id}")
-        if response.status_code == 200 :
-            response = response.json()
-            if response['success'] :
-                if id.isdigit() :
-                    return render_template( 'pelicula.html', pelicula= response['data'] )    
-                else : return render_template( 'peliculas.html', peliculas= response['data'] )
-            else : return redirect( url_for('index') )
-        else: return redirect( url_for('index') )
-    
-    return redirect( url_for( 'index' ) )
+@app.route("/peliculas")
+def peliculas():
+    response = requests.get("https://oaemdl.es/cinestar_sweb_php/peliculas")
+    if response.status_code == 200:
+        data = response.json()
+        if data['success']:
+            return render_template('peliculas.html', peliculas=data['data'])
+    return redirect(url_for('index'))
 
 if __name__ == "__main__" :
     app.register_error_handler( 404, page_no_found )
